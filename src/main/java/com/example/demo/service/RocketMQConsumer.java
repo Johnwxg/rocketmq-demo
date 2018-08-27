@@ -43,7 +43,7 @@ public class RocketMQConsumer {
      * @return
      * @throws Exception
      */
-    protected DefaultMQPushConsumer getConsumer(String topic) throws Exception{
+    public DefaultMQPushConsumer getConsumer(String topic) throws Exception{
         // 如果Map中存在这个key值，则直接返回
         if (consumerMap.containsKey(topic)) {
             return consumerMap.get(topic);
@@ -66,7 +66,8 @@ public class RocketMQConsumer {
     /**
      * 消费者业务逻辑处理
      */
-    protected void consumeMessage(){
+    public void consumeMessage(){
+    	System.out.println("RocketMQProducer.consumeMessage消费组监听开始....,topic："+topic);
         try {
             DefaultMQPushConsumer consumer = null;
             try {
@@ -94,6 +95,7 @@ public class RocketMQConsumer {
                 public ConsumeConcurrentlyStatus doBusiness(String msgContent) {
                     ConsumeConcurrentlyStatus consumerStatus = ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                     try {
+                    	System.out.println("RocketMQProducer.consumeMessage消费消息,msgContent："+msgContent);
 //                        InputObject inputObject = JsonUtil.json2InputObject(msgContent);
 //                        getControlService().execute(inputObject);
                         System.out.print("$$$$$$-消费逻辑处理中");
@@ -105,6 +107,8 @@ public class RocketMQConsumer {
             });
             // 启动消费端
             consumer.start();
+            
+            System.out.println("RocketMQProducer.consumeMessage消费组启动监听成功,topic："+topic);
         } catch (Exception e) {
             e.printStackTrace();
         }

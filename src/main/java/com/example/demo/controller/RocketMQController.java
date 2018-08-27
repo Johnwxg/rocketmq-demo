@@ -14,14 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value="/test")
 public class RocketMQController {
     @Autowired
     private RocketMQProducer producer;
     @Autowired
     private RocketMQConsumer consumer;
 
-    @RequestMapping(value = "/testMq")
-    public void test(){
+    @RequestMapping("/producer")
+    public void producer(){
         producer.sendMsgMQ("helloword","147852963");
+    }
+    
+    @RequestMapping("/consumer")
+    public void consumer(){
+        consumer.consumeMessage();
     }
 }

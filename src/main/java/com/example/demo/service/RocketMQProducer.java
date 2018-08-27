@@ -62,13 +62,14 @@ public class RocketMQProducer {
     }
 
     /**
-     * 将内容放入消息队列
+     * 将内容
      * @param
      * @param key
      * @param value
      * @return
      */
     public boolean sendMsgMQ(String key, String value){//(String topic, String key, String value){
+    	System.out.println("RocketMQProducer.sendMsgMQ入消息队列，key:"+key+",value:"+value);
         if (topic==null || value==null) {
             return false;
         }
@@ -82,7 +83,7 @@ public class RocketMQProducer {
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.print(result.getSendStatus().toString());
+        System.out.println("RocketMQProducer.sendMsgMQ入消息队列状态:"+result.getSendStatus().toString()+"，返回结果:"+result.toString());
         return SendStatus.SEND_OK.equals(result.getSendStatus());
     }
 }
